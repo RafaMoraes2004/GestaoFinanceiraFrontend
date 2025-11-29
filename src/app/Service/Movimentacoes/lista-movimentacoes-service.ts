@@ -9,7 +9,6 @@ import { inject } from '@angular/core';
 })
 export class ListaMovimentacoesService {
   
-
   private http = inject(HttpClient);
   private base = `http://localhost:3000/movimentacoes`;
 

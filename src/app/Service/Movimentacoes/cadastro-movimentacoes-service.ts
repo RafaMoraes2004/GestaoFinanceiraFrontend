@@ -6,7 +6,7 @@ import { Tipo } from '../../Types/tipo';
 
 export interface Movimentacao {
 
-  id? : string;
+  _id? : string;
   categoriaId : string;
   valor : number;
   descricao : string;

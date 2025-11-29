@@ -1,1 +1,78 @@
-<p>lista-movimentacoes works!</p>
+<div class="container">
+  
+    <div class="header">
+      <h1>Lista de Movimentações</h1>
+      
+      <div class="header-actions">
+        <!-- FILTRO DE CATEGORIAS -->
+        <select [(ngModel)]="filtroCategoria" class="select-filtro">
+          <option value="">Todas as Categorias</option>
+          @for (cat of categorias; track $index) {
+            <!-- Tenta pegar _id ou id para garantir -->
+            <option [value]="cat._id ">
+              {{ cat.name}}
+            </option>
+          }
+        </select>
+  
+        <a routerLink="/cadastro-movimentacoes" class="btn-novo">
+          + Nova Movimentação
+        </a>
+      </div>
+    </div>
+
+    <div class="card-saldo">
+        <span class="label-saldo">Saldo Total:</span>
+        <span class="valor-saldo">
+          R$ {{ saldoTotal()}}
+        </span>
+      </div>
+
+    @if (carregando) {
+      <p class="msg-loading">Carregando dados...</p>
+    } 
+    @else {
+      
+      <ul class="lista">
+        @for (mov of movimentacoesFiltradas; track mov._id) {
+          
+          <li class="item" 
+              [style.border-left]="'5px solid ' + getCor(mov.categoriaId)"
+              [title]="'Categoria: ' + getNomeCategoria(mov.categoriaId)">
+            
+            <div class="info">
+              <span class="descricao">{{ mov.descricao }}</span>
+              <span class="separador">|</span>
+              
+              <span class="badge-categoria" [style.background-color]="getCor(mov.categoriaId)">
+                 {{ getNomeCategoria(mov.categoriaId) }}
+              </span>
+  
+              <span class="separador">|</span>
+  
+              <span class="tipo" 
+                    [class.entrada]="mov.Tipo === 'ENTRADA'" 
+                    [class.saida]="mov.Tipo === 'SAIDA'">
+                {{ mov.Tipo }}
+              </span>
+            </div>
+  
+            <div class="acoes">
+              <span class="valor">
+                R$ {{ mov.valor }}
+              </span>
+              
+              <!-- CORREÇÃO AQUI: Passamos mov._id OU mov.id -->
+            <button (click)="excluir(mov._id)" class="btn-excluir" title="Excluir">
+                Excluir
+              </button>
+            </div>
+  
+          </li>
+        } @empty {
+          <li class="item-vazio">Nenhuma movimentação encontrada com este filtro.</li>
+        }
+      </ul>
+  
+    }
+  </div>

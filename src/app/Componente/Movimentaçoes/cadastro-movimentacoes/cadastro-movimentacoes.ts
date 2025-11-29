@@ -4,10 +4,11 @@ import { Tipo } from '../../../Types/tipo';
 import { CadastroMovimentacoesService, Movimentacao } from '../../../Service/Movimentacoes/cadastro-movimentacoes-service';
 import { CategoriaService, Categoria } from '../../../Service/Categoria/categoria-service';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-cadastro-movimentacoes',
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, RouterLink],
   templateUrl: './cadastro-movimentacoes.html',
   styleUrl: './cadastro-movimentacoes.css',
 })
